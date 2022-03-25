@@ -4,22 +4,15 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var sassMiddleware = require('node-sass-middleware');
 require('dotenv').config();
-
+const nunjucks = require('nunjucks');
 
 var indexRouter = require('./routes/index');
 var loginRouter = require('./routes/login');
 var secretRouter = require('./routes/secret');
 
-const nunjucks = require('nunjucks');
-const bcrypt = require('bcrypt');
-
-
-
-
 var app = express();
 
 app.use(logger('dev'));
-app.use(bcrypt());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
