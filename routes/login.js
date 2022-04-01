@@ -21,7 +21,7 @@ router.post('/', async (req, res, next) => {
   // { "task": "koda post" }
       const username = req.body.name;
       const password = req.body.password;
-      req.session.login = "";
+      req.session.destroy();
 
       await pool.promise()
           .query('select * FROM user WHERE name = ?', [username])
@@ -33,7 +33,7 @@ router.post('/', async (req, res, next) => {
             bcrypt.compare(password, rows[0].password, function(err,result) {
               console.log(result);
               if (result) {
-                req.session.login = username;
+                req.session.username = username;
                 return res.redirect('/secret');
               } else {
                 return res.send('Failed to login');

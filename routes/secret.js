@@ -6,8 +6,8 @@ const pool = require('../database');
 /* GET users listing. */
 
 router.get('/', async (req, res, next) => {
-  const username = req.session.login;
-  if (username == "") {
+  const username = req.session.username;
+  if (username == undefined) {
     return res.redirect('/');
   }
   await pool.promise()

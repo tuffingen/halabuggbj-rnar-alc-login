@@ -10,6 +10,7 @@ const session = require('express-session');
 var indexRouter = require('./routes/index');
 var loginRouter = require('./routes/login');
 var secretRouter = require('./routes/secret');
+var logoutRouter = require('./routes/logout');
 
 var app = express();
 
@@ -34,6 +35,7 @@ app.use(session({
 app.use('/', indexRouter);
 app.use('/login', loginRouter);
 app.use('/secret', secretRouter);
+app.use('/logout', logoutRouter);
 
 nunjucks.configure('views', {
   autoescape: true,
