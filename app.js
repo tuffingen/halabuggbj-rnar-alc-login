@@ -5,6 +5,7 @@ var logger = require('morgan');
 var sassMiddleware = require('node-sass-middleware');
 require('dotenv').config();
 const nunjucks = require('nunjucks');
+const session = require('express-session');
 
 var indexRouter = require('./routes/index');
 var loginRouter = require('./routes/login');
@@ -23,6 +24,12 @@ app.use(sassMiddleware({
   sourceMap: true
 }));
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(session({
+  secret: 'hemlig',
+  resave: false,
+  saveUninitialized: true,
+  cookie: { sameSite: true }
+}))
 
 app.use('/', indexRouter);
 app.use('/login', loginRouter);
