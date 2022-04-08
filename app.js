@@ -11,6 +11,7 @@ var indexRouter = require('./routes/index');
 var loginRouter = require('./routes/login');
 var secretRouter = require('./routes/secret');
 var logoutRouter = require('./routes/logout');
+var signupRouter = require('./routes/signup');
 
 var app = express();
 
@@ -36,6 +37,7 @@ app.use('/', indexRouter);
 app.use('/login', loginRouter);
 app.use('/secret', secretRouter);
 app.use('/logout', logoutRouter);
+app.use('/signup', signupRouter);
 
 nunjucks.configure('views', {
   autoescape: true,

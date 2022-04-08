@@ -5,23 +5,17 @@ const bcrypt = require('bcrypt');
 
 /* GET users listing. */
 router.get('/', function (req, res, next) {
-  
-  bcrypt.hash('hemlis123', 10, function (err, hash) {
-    console.log(hash);
-    let data= {
-      layout: 'layout.njk'
-    }
-    res.render('login.njk', data);
-    
-    // Store hash in your password DB.
-  });
+  console.log(req.session.uid);
+  let data= {
+    layout: 'layout.njk'
+  }
+  res.render('login.njk', data);
 });
 
 router.post('/', async (req, res, next) => {
   // { "task": "koda post" }
       const username = req.body.name;
       const password = req.body.password;
-      req.session.destroy();
 
       await pool.promise()
           .query('select * FROM user WHERE name = ?', [username])
@@ -34,6 +28,7 @@ router.post('/', async (req, res, next) => {
               console.log(result);
               if (result) {
                 req.session.username = username;
+                req.session.user_id = rows[0].id;
                 return res.redirect('/secret');
               } else {
                 return res.send('Failed to login');

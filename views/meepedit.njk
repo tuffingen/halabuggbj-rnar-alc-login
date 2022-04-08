@@ -1,0 +1,30 @@
+{% extends  layout %}
+{% block  content %}
+
+<div class="container">
+  <div class="cards d-flex flex-wrap justify-content-center">
+  {% for item in items %}
+  <div class="card" style="width: 42rem;">
+    <div class="card-body">
+      <h5 class="card-title">Anonymous user</h5>
+      <h6 class="card-subtitle mb-2 text-muted">{{item.updated_at}}</h6>
+      <form action="/secret/{{item.id}}" method="POST">
+        <div class="mb-3">
+          <input type="text" class="form-control" id="body" name="body" value="{{item.body}}" placeholder="Edit meep..." autocomplete="off">
+          <label for="exampleFormControlInput1" class="form-label" id="char-count"></label>
+        </div>
+        <input type="submit" class="btn btn-primary mb-3" value="Update">
+      </form>
+      <form action="/secret/{{item.id}}/delete/" method="GET">
+        <input type="submit" value="DELETE" class="btn btn-danger">
+      </form>
+    </div>
+  </div>
+  {% endfor %}
+  </div>
+    
+</div>
+
+<script src="/javascripts/charcount.js"></script>
+
+{% endblock %}
